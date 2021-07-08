@@ -151,16 +151,16 @@ require_once('variables.php');
                 $dbh->query("INSERT INTO comments(comment) VALUE ('$_POST[comment]')");
             }
 
+
             $allComments = queryInDB($dbh, 'comments');
 
-            
-            foreach($allComments as $comment) {
-                echo $comment['comment'] . '<br>'; 
+            if ($allComments->rowCount()) {
+                foreach($allComments as $comment) {
+                    echo $comment['comment'] . '<br>'; 
+                }
+            } else {
+                echo 'Здесь пока нет никаких комментариев :(';
             }
-
-            // if (!$comment) {
-            //     echo 'Здесь пока нет никаких комментариев :(';
-            // }
         
             ?>
             

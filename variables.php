@@ -1,7 +1,7 @@
 <?
 
-function queryInDB($connect, $table) {
-  return $connect->query("SELECT * FROM $table");
+function queryInDB($db, $table) {
+  return $db->query("SELECT * FROM $table");
 }
 
 $aboutData = queryInDB($dbh, 'about')->fetch();
