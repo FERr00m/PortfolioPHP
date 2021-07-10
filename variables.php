@@ -1,7 +1,9 @@
 <?
 
 function queryInDB($db, $table) {
-  return $db->query("SELECT * FROM $table");
+  $stmt = $db->prepare("SELECT * FROM $table");
+  $stmt->execute();
+  return $stmt;
 }
 
 $aboutData = queryInDB($dbh, 'about')->fetch();

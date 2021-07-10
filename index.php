@@ -148,14 +148,19 @@ require_once('variables.php');
 
             <?
             if ($_POST['comment']) {
-                $dbh->query("INSERT INTO comments(comment) VALUE ('$_POST[comment]')");
+                $comment = htmlspecialchars($_POST['comment']);
+                $stmt = $dbh->prepare("INSERT INTO comments(comment) VALUE (:comment)");
+                $stmt->execute(['comment'=>$comment]);
+
+
             }
 
 
-            $allComments = queryInDB($dbh, 'comments');
+            $allComments = $dbh->query("SELECT * FROM comments WHERE moderation='ok'");
 
             if ($allComments->rowCount()) {
                 foreach($allComments as $comment) {
+
                     echo $comment['comment'] . '<br>'; 
                 }
             } else {
